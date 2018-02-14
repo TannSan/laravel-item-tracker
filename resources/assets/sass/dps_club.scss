@@ -1,0 +1,137 @@
+
+/**
+ * This styles the main interface but does not include the scoreboards.  It gets compiled into the main app.css file.
+ */
+
+body
+{
+   background-image: url("/img/deathstar.jpg");
+   background-attachment: scroll;
+   background-repeat: repeat;
+   background-position: center top;
+   font-family: Verdana, sans-serif;
+}
+
+.navbar-default
+   {
+      background-color: #000;
+      border-color: #333;
+   }
+
+.navbar-default .navbar-brand,
+.navbar-default .navbar-brand:focus,
+.navbar-default .navbar-brand:hover
+   {
+      color: #12ff00;
+   }
+
+.navbar-default .navbar-nav > li > a:focus,
+.navbar-default .navbar-nav > li > a:hover
+   {
+      color: #fff;
+   }
+
+.btn-danger
+   {
+      color: #000;
+      background-color: orange;
+   }
+
+.btn-danger.active,
+.btn-danger:active,
+.btn-danger.active.focus,
+.btn-danger.active:focus,
+.btn-danger.active:hover,
+.btn-danger:active.focus,
+.btn-danger:active:focus,
+.btn-danger:active:hover,
+.btn-danger.focus,
+.btn-danger:focus,
+.btn-danger:hover,
+.open > .btn-danger.dropdown-toggle,
+.open > .btn-danger.dropdown-toggle.focus,
+.open > .btn-danger.dropdown-toggle:focus,
+.open > .btn-danger.dropdown-toggle:hover
+   {
+      color: #000;
+      background-color: orange;
+      border-color: #fff;
+   }
+
+/* Bootstrap Panels, more settings in _variables.scss */
+
+.panel
+   {
+      background: transparent url(/img/transparent-grey.png) repeat scroll 0 0;
+   }
+
+.panel-default > .panel-heading
+   {
+      color: #fff;
+   }
+
+.panel label
+   {
+      color: #fff;
+   }
+
+.panel input.form-control,
+.panel select.form-control
+   {
+      color: #ddd;
+      background: #1D1D1D;
+   }
+
+.panel .table-striped > tbody > tr:nth-of-type(2n+1)
+   {
+      background-color: #111;
+   }
+
+.panel > .panel-body + .table,
+.panel > .panel-body + .table-responsive,
+.panel > .table + .panel-body,
+.panel > .table-responsive + .panel-body
+   {
+      border-top: 1px solid #333;
+   }
+
+.table-bordered,
+.table-bordered > tbody > tr > td,
+.table-bordered > tbody > tr > th,
+.table-bordered > tfoot > tr > td,
+.table-bordered > tfoot > tr > th,
+.table-bordered > thead > tr > td,
+.table-bordered > thead > tr > th
+   {
+      border: 1px solid #333;
+   }
+
+.panel .panel-footer
+   {
+      background-color: #1E1E1F;
+      border-top: 1px solid #333;
+   }
+
+/* Custom DPS Club Editor Fields */
+
+div.class_spec div.form-group
+   {
+      width: 50%;
+   }
+
+div.class_spec div.form-group select
+   {
+      width: 100%;
+   }
+
+div.class_spec .form-inline .form-group
+   {
+      display: inline-block;
+      margin-bottom: 0;
+      vertical-align: middle;
+   }
+
+.panel table.table tbody td
+   {
+      vertical-align: middle;
+   }

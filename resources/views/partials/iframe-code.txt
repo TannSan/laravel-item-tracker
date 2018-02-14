@@ -1,0 +1,1 @@
+<iframe src="https://dpsclub.strokemywookie.com/parse/iframe-scoreboards" scrolling="no" sandbox="allow-top-navigation" style="border: none; width: 100%; height: 2050px; overflow: hidden;"></iframe>

@@ -15,7 +15,8 @@
                 :disable-if="disable"
                 :external-sources="true">
                 <list v-for="(col, number) in item.columns"
-                    :key="col.id" :item="col"
+                    :key="col.id"
+                    :item="col"
                     :list="item.columns"
                     :index="number"
                     :selected="selectedEvent"
@@ -24,7 +25,9 @@
                 </list>
             </vddl-list>
         </div>
-        <input type="text" class="form-control" v-model="item.type+' '+item.id" v-else />
+        <p v-else>
+            {{item.type}} {{item.id}}
+        </p>
     </vddl-draggable>
 </template>
 

@@ -25,7 +25,7 @@
                      <span class="icon-bar"></span>
                      <span class="icon-bar"></span>
                   </button>
-                  <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>@auth <span class="navbar-user">:{{{Auth::user()->name}}}</span> @endauth
+                  <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>@auth <div class="navbar-user">{{{Auth::user()->name}}}</div> @endauth
                </div>
                <div class="collapse navbar-collapse" id="app-navbar-collapse">
                   <ul class="nav navbar-nav navbar-right">
@@ -61,13 +61,9 @@
          @yield('content')
       </div>
       <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
-      @if(!Request::is('parse/iframe-scoreboards'))<script src="{{ asset('js/app.js') }}"></script>@endif
+      <script src="{{ asset('js/app.js') }}"></script>
+      <script src="{{ asset('js/jquery-sortable.js') }}"></script>      
       @if(Request::is('start'))<script src="{{ asset('js/bootstrap-confirmation.min.js') }}"></script>@endif
-      @if(Request::is('parse/*/edit') or Request::is('parse/create'))
-      <script src="{{ asset('js/bootstrap-toggle.min.js') }}"></script>
-      <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
-      @endif
-      @if(Request::is('parse/*/edit') or Request::is('parse/create'))<script src="{{ asset('js/custom.js') }}"></script>@endif
-      @if(Request::is('start'))<script src="{{ asset('js/starting-points.js') }}"></script>@endif
+      <script src="{{ asset('js/custom.js') }}"></script>      
    </body>
 </html>

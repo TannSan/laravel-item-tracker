@@ -1,63 +1,66 @@
 
-function updateSpecialization()
-   {
-      var options = [];
+var item_log = $('textarea#item-log');
+function leadingZeros(message_time)
+    {
+        return message_time < 10 ? '0' + message_time : message_time;
+    }
 
-      switch($("select#advanced_class option:selected").val())
-         {
-            case "Assassin":
-               options = ["Darkness", "Deception", "Hatred"];
-               break;
-            case "Juggernaut":
-               options = ["Immortal", "Vengeance", "Rage"];
-               break;
-            case "Marauder":
-               options = ["Annihilation", "Carnage", "Fury"];
-               break;
-            case "Mercenary":
-               options = ["Arsenal", "Bodyguard", "Innovative Ordnance"];
-               break;
-            case "Operative":
-               options = ["Concealment", "Lethality", "Medicine"];
-               break;
-            case "Powertech":
-               options = ["Advanced Prototype", "Pyrotech", "Shield Tank"];
-               break;
-            case "Sniper":
-               options = ["Engineering", "Marksmanship", "Virulance"];
-               break;
-            case "Sorcerer":
-               options = ["Corruption", "Lightning", "Madness"];
-               break;
-         }
+function itemLog(message)
+    {
+        var dt = new Date();
+        var message_time = leadingZeros(dt.getHours()) + ":" + leadingZeros(dt.getMinutes());
+        item_log.val(item_log.val() + '\n' + message_time + ' ' + message);
+        item_log.scrollTop(item_log[0].scrollHeight);
+    }
 
-      var selected_option = $('select#specialization').data('selected');
-      var output = "";
-      for (var i = 0; i < 3; i++)
-         {
-            if(options[i] == selected_option)
-               output += '<option value="' + options[i] + '" selected="selected">'+ options[i] +'</option>';
-            else
-               output += '<option value="' + options[i] + '">'+ options[i] +'</option>';
-         }
+$("ol.user-container").sortable(
+    {
+        group: 'system-users',
+        handle: 'span.glyphicon-move',
+        onDrop: function ($item, container, _super) {
 
-      $('select#specialization').html(output);
-   }
+            /**
+             *  If this is the new-template list item then clone it back to the original position and then configure this copy
+             */
+            if($item.attr('id') == 'new-item')
+                {
+                    $item.removeAttr('id');
+                    $('input', $item).prop("disabled", false);
+                    $item.append('<ol></ol>');
 
-//$( document ).ready(function() {
+                    var new_item = $('li#new-template').clone();
+                    new_item.attr('id', 'new-item');
+                    new_item.prependTo("ol.new-container");
+                    new_item.show();
+                }
 
-   if ($('select#advanced_class').attr('data-selected'))
-      $('select#advanced_class').val($('select#advanced_class').data('selected'));
-   updateSpecialization();
+            $.ajax({
+                method: 'POST',
+                url: '/list',
+                data: {
+                    'testsend': 'somedata'
+                },
+                headers: { 'X-CSRF-TOKEN': $('input[name=_token]').val() }
+            }).done(function (json_response) {
+                $("div.alert-success").html(json_response.test);
+                console.log(json_response);
+                itemLog(json_response);
+            });
+            _super($item, container);
+            return false;
+        }
+    }
+);
 
-   //  Wire up the Advanced Class select
-   $("select#advanced_class").change(function() {
-      updateSpecialization();
-   });
-
-   // Activate the DatePicker component
-   $('input#parse_date').datepicker({
-     autoclose: true,
-     format:"yyyy-mm-dd"
-   });
-//});
+$("ol.new-container").sortable(
+    {
+        group: 'system-users',
+        drop: false,
+        handle: 'span.glyphicon-move',
+        onDrop: function ($item, container, _super) {
+            console.log("Dropped");
+            _super($item, container);
+            return false;
+        }
+    }
+);

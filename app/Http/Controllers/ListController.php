@@ -44,6 +44,12 @@ class ListController extends Controller
      */
     public function store(Request $request)
     {
+        return \Response::json(array(
+             'success' => true,
+             'test'   => 'worked-'.$request->input('testsend'),
+             'anothertest' => 'yaaaay'
+         )); 
+/*
        $data = $request->validate([
            'parent_category_id' => 'required|numeric',
            'sort_order' => 'required|numeric',
@@ -52,6 +58,7 @@ class ListController extends Controller
        $data['is_category'] = $request->input('is_category') !== null;
        $list_item = tap(new \App\ListItem($data))->save();
        return redirect('/list')->withSuccess('Item Created');
+       */
     }
 
     /**
@@ -109,7 +116,14 @@ class ListController extends Controller
      */
     public function destroy($id)
     {
+        /*
        $list_item = \App\ListItem::find($id);
        $list_item->delete();
+       */
+
+       return Response::json(array(
+            'success' => true,
+            'data'   => 'test=worked'
+        )); 
     }
 }

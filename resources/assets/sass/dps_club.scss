@@ -5,11 +5,9 @@
 
 body
 {
-   background-image: url("/img/deathstar.jpg");
-   background-attachment: scroll;
-   background-repeat: repeat;
-   background-position: center top;
-   font-family: Verdana, sans-serif;
+    background: #000 url("/img/new-york.jpg") no-repeat fixed center top;
+    background-size: cover;
+    font-family: Verdana, sans-serif;
 }
 
 .navbar-default

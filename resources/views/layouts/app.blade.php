@@ -12,7 +12,7 @@
       <link href="{{ asset('css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
       @endif
       @if(Request::is('parse'))<link href="{{ asset('css/dps_club_scoreboards.css') }}" rel="stylesheet">@endif
-      <link rel="icon" href="/favicon.gif" type="image/gif" />
+      <link rel="icon" href="/favicon.ico" type="image/x-icon" />
    </head>
    <body>
       <div id="app">
@@ -25,16 +25,13 @@
                      <span class="icon-bar"></span>
                      <span class="icon-bar"></span>
                   </button>
-                  <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>
+                  <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>@auth <span class="navbar-user">:{{{Auth::user()->name}}}</span> @endauth
                </div>
                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                  <ul class="nav navbar-nav">&nbsp;</ul>
                   <ul class="nav navbar-nav navbar-right">
-                     <li><a href="{{ url('/parse') }}">Score Boards</a></li>
-                     @role('Admin|Manager')<li><a href="{{ url('/start') }}">DPS Club Starting Points</a></li>@endrole
                      @guest
                      <li><a href="{{ route('login') }}">Login</a></li>
-                     {{--<li><a href="{{ route('register') }}">Register</a></li>--}}
+                     <li><a href="{{ route('register') }}">Register</a></li>
                      @else
                      @role('Admin')
                      <li><a href="/users"><i class="fa fa-btn fa-unlock"></i>Admin</a></li>
@@ -63,6 +60,7 @@
          --}}
          @yield('content')
       </div>
+      <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
       @if(!Request::is('parse/iframe-scoreboards'))<script src="{{ asset('js/app.js') }}"></script>@endif
       @if(Request::is('start'))<script src="{{ asset('js/bootstrap-confirmation.min.js') }}"></script>@endif
       @if(Request::is('parse/*/edit') or Request::is('parse/create'))

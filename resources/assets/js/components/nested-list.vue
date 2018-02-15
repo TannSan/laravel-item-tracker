@@ -1,0 +1,43 @@
+<template lang="html">
+    <vddl-draggable
+        :draggable="item"
+        :index="index"
+        :disable-if="disable"
+        :selected="selectedEvent"
+        :wrapper="list"
+        v-bind:class="{'selected': selectedItem === item}">
+        <div class="panel panel-default" v-if="item.type === 'container'">
+            <div class="panel-heading">
+                <h3 class="panel-title">Container {{item.id}}</h3>
+            </div>
+            <vddl-list class="panel-body"
+                :list="item.columns"
+                :disable-if="disable"
+                :external-sources="true">
+                <list v-for="(col, number) in item.columns"
+                    :key="col.id" :item="col"
+                    :list="item.columns"
+                    :index="number"
+                    :selected="selectedEvent"
+                    :selected-item="selectedItem"
+                    :disable="disable">
+                </list>
+            </vddl-list>
+        </div>
+        <input type="text" class="form-control" v-model="item.type+' '+item.id" v-else />
+    </vddl-draggable>
+</template>
+
+<script>
+export default {
+  name: 'list',
+  props: ['item', 'list', 'index', 'selected', 'selectedItem', 'disable'],
+  methods: {
+    selectedEvent(item){
+      if (typeof(this.selected) === 'function') {
+        this.selected(item);
+      }
+    }
+  }
+};
+</script>

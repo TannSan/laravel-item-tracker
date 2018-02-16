@@ -16,7 +16,7 @@ body {
 .navbar-default .navbar-brand,
 .navbar-default .navbar-brand:focus,
 .navbar-default .navbar-brand:hover {
-    color: #12ff00;
+    color: #fc7d19;
 }
 
 .navbar-default .navbar-nav>li>a:focus,
@@ -100,23 +100,6 @@ body {
 .panel .panel-footer {
     background-color: #1E1E1F;
     border-top: 1px solid #333;
-}
-
-
-/* Custom DPS Club Editor Fields */
-
-div.class_spec div.form-group {
-    width: 50%;
-}
-
-div.class_spec div.form-group select {
-    width: 100%;
-}
-
-div.class_spec .form-inline .form-group {
-    display: inline-block;
-    margin-bottom: 0;
-    vertical-align: middle;
 }
 
 .panel table.table tbody td {

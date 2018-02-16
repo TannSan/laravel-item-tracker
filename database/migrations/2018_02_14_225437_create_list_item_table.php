@@ -15,9 +15,8 @@ class CreateListItemTable extends Migration
     {
         Schema::create('list_items', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('parent_category_id');
-            $table->integer('sort_order');
-            $table->boolean('is_category');
+            $table->integer('parent_id');
+            $table->integer('user_id');
             $table->string('label', 256);
             $table->timestamps();
         });

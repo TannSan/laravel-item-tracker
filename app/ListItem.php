@@ -16,9 +16,8 @@ class ListItem extends Model
      */
     protected $fillable = [
         'id',
-        'parent_category_id',
-        'sort_order',
-        'is_category',
+        'parent_id',
+        'user_id',
         'label'
     ];
 }

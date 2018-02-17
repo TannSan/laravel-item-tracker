@@ -35,8 +35,6 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        // $roles = Role::get();
-        // return view('permissions.edit')->with('roles', $roles);
         return view('permissions.edit');
     }
 
@@ -49,7 +47,7 @@ class PermissionController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name'=>'required|max:40',
+            'name'=>'required|max:40'
         ]);
 
         $name = $request['name'];
@@ -57,21 +55,7 @@ class PermissionController extends Controller
         $permission->name = $name;
         $permission->save();
 
-        /*
-        $roles = $request['roles'];
-        if (!empty($request['roles'])) {
-            foreach ($roles as $role) {
-                $r = Role::where('id', '=', $role)->firstOrFail(); //Match input role to db record
-
-                $permission = Permission::where('name', '=', $name)->first();
-                $r->givePermissionTo($permission);
-            }
-        }
-        */
-
-        return redirect()->route('permissions.index')
-            ->with('flash_message',
-             'Permission'. $permission->name.' added!');
+        return redirect()->route('permissions.index')->with('flash_message', 'Permission'. $permission->name.' added!');
     }
 
     /**
@@ -100,36 +84,32 @@ class PermissionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * TODO: Combine with Store
-     *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $permission = Permission::findOrFail($id);
-
         $this->validate($request, [
             'name'=>'required|max:40',
         ]);
 
         $input = $request->all();
+        $permission = Permission::findOrFail($id);
         $permission->fill($input)->save();
 
         $roles = $request['roles'];
-        if (!empty($request['roles'])) {
-            foreach ($roles as $role) {
-                $r = Role::where('id', '=', $role)->firstOrFail(); //Match input role to db record
-
-                $permission = Permission::where('name', '=', $name)->first();
-                $r->givePermissionTo($permission);
+        if (!empty($request['roles']))
+            {
+                foreach ($roles as $role)
+                    {
+                        $permission = Permission::where('name', '=', $name)->first();
+                        $r = Role::where('id', '=', $role)->firstOrFail();
+                        $r->givePermissionTo($permission);
+                    }
             }
-        }
 
-        return redirect()->route('permissions.index')
-            ->with('flash_message',
-             'Permission'. $permission->name.' updated!');
+        return redirect()->route('permissions.index')->with('flash_message', 'Permission'. $permission->name.' updated!');
     }
 
     /**
@@ -142,16 +122,11 @@ class PermissionController extends Controller
     {
         $permission = Permission::findOrFail($id);
 
-        if ($permission->name == "Administer Roles & Permissions") {
-            return redirect()->route('permissions.index')
-            ->with('flash_message',
-             'Cannot delete this Permission!');
-        }
+        if ($permission->name == "Administer Roles & Permissions")
+            return redirect()->route('permissions.index')->with('flash_message','Cannot delete this Permission!');
 
         $permission->delete();
 
-        return redirect()->route('permissions.index')
-            ->with('flash_message',
-             'Permission deleted!');
+        return redirect()->route('permissions.index')->with('flash_message', 'Permission deleted!');
     }
 }

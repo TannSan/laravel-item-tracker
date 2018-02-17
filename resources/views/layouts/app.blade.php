@@ -7,11 +7,6 @@
       <meta name="csrf-token" content="{{ csrf_token() }}">
       <title>{{ config('app.name', 'Laravel') }}</title>
       <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-      @if(Request::is('parse/*/edit') or Request::is('parse/create'))
-      <link href="{{ asset('css/bootstrap-toggle.min.css') }}" rel="stylesheet">
-      <link href="{{ asset('css/bootstrap-datepicker.min.css') }}" rel="stylesheet">
-      @endif
-      @if(Request::is('parse'))<link href="{{ asset('css/dps_club_scoreboards.css') }}" rel="stylesheet">@endif
       <link rel="icon" href="/favicon.ico" type="image/x-icon" />
    </head>
    <body>
@@ -64,6 +59,7 @@
       <script src="{{ asset('js/app.js') }}"></script>
       <script src="{{ asset('js/jquery-sortable.js') }}"></script>      
       @if(Request::is('start'))<script src="{{ asset('js/bootstrap-confirmation.min.js') }}"></script>@endif
-      <script src="{{ asset('js/custom.js') }}"></script>      
+      <script src="{{ asset('js/log.js') }}"></script>      
+      <script src="{{ asset('js/sortable-lists.js') }}"></script>      
    </body>
 </html>

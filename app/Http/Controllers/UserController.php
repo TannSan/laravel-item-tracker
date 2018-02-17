@@ -25,7 +25,6 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-
         return view('users.index')->with('users', $users);
     }
 
@@ -55,20 +54,17 @@ class UserController extends Controller
         ]);
 
         $user = User::create($request->only('email', 'name', 'password'));
-
         $roles = $request['roles'];
 
-        if (isset($roles)) {
-
-            foreach ($roles as $role) {
-            $role_r = Role::where('id', '=', $role)->firstOrFail();
-            $user->assignRole($role_r);
+        if (isset($roles))
+            {
+                foreach ($roles as $role)
+                    {
+                        $user->assignRole(Role::where('id', '=', $role)->firstOrFail());
+                    }
             }
-        }
 
-        return redirect()->route('users.index')
-            ->with('flash_message',
-             'User successfully added.');
+        return redirect()->route('users.index')->with('flash_message', 'User successfully added.');
     }
 
     /**
@@ -115,15 +111,12 @@ class UserController extends Controller
         $roles = $request['roles'];
         $user->fill($input)->save();
 
-        if (isset($roles)) {
+        if (isset($roles))
             $user->roles()->sync($roles);
-        }
-        else {
+        else
             $user->roles()->detach();
-        }
-        return redirect()->route('users.index')
-            ->with('flash_message',
-             'User successfully edited.');
+
+        return redirect()->route('users.index')->with('flash_message', 'User successfully edited.');
     }
 
     /**
@@ -136,9 +129,6 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
-
-        return redirect()->route('users.index')
-            ->with('flash_message',
-             'User successfully deleted.');
+        return redirect()->route('users.index')->with('flash_message', 'User successfully deleted.');
     }
 }

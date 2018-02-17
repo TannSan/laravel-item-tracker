@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -12,14 +11,14 @@ class HomeController extends Controller
     }
 
     /**
-     * Display the default home page.
+     * If logged in redirect to the lis page otherwise display the default home page.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
       if(Auth::user() !== null && Auth::user()->hasAnyPermission(['Administer Roles & Permissions', 'Edit Collection', 'View Collection']))
-        return redirect('/list');
+        return redirect('lists.index');
       else
         return view('home');
     }

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 class ListController extends Controller
 {
+    private $list_item_helper;
+
     public function __construct()
     {    
         // $this->middleware(['auth', 'clearance']);  
@@ -18,24 +20,8 @@ class ListController extends Controller
      */
     public function index()
     {
-      $list_items = \App\ListItem::orderBy('user_id', 'desc')->orderBy('parent_id', 'desc')->get();
-
-      $grouped_items = $list_items->groupBy('parent_id');
-
-      // return view('/list')->with('list_items', json_encode($list_items));
-      return \Response::json($grouped_items); 
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-      $action_desc = 'Creating New Item';
-      $list_item = new \App\ListItem();
-      return view('edit', compact('action_desc', 'list_item'));
+      return view('lists.index')->with('list_items', json_encode(\App\ListItem::orderBy('label')->orderBy('parent_id')->get()));
+      // return \Response::json(\App\ListItem::orderBy('parent_id')->get()); 
     }
 
     /**
@@ -72,57 +58,7 @@ class ListController extends Controller
                 $list_item->save();
             }
 
-        return \Response::json(array(
-             'success' => true,
-             'id' => $list_item->id
-         )); 
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-      $action_desc = "Editing Item With ID".$id;
-      $parse = \App\Parse::find($id);
-      return view('edit', compact('action_desc', 'id', 'parse'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-       $data = $request->validate([
-           'parent_category_id' => 'required|numeric',
-           'sort_order' => 'required|numeric',
-           'label' => 'required|max:256'
-       ]);
-       $data['is_category'] = $request->input('is_category') !== null;
-
-       $list_item = \App\ListItem::findOrFail($id);
-       $list_item->fill($data);
-       $list_item->save();
-
-       return redirect('/list')->withSuccess('Item Updated');
+        return \Response::json(array('success' => true, 'id' => $list_item->id)); 
     }
 
     /**
@@ -138,9 +74,6 @@ class ListController extends Controller
        $list_item->delete();
        */
 
-       return Response::json(array(
-            'success' => true,
-            'data'   => 'test=worked'
-        )); 
+       return Response::json(array('success' => true)); 
     }
 }

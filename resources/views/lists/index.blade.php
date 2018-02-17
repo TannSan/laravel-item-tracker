@@ -62,4 +62,7 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        var list_items = {!! $list_items !!};
+    </script>
 @endsection

@@ -2,17 +2,6 @@
 
 use Illuminate\Http\Request;
 
-/*
-// Debug SQL
-\Event::listen('Illuminate\Database\Events\QueryExecuted', function( $query ) {
-    echo'<pre>';
-    var_dump($query->sql);
-    var_dump($query->bindings);
-    var_dump($query->time);
-    echo'</pre>';
-});
-*/
-
 Route::get('/', 'HomeController@index');
 
 Route::group(['middleware' => ['role:Admin|Editor|Viewer']], function () {

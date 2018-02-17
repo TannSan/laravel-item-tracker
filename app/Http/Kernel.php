@@ -61,6 +61,5 @@ class Kernel extends HttpKernel
         'clearance' => \App\Http\Middleware\ClearanceMiddleware::class,
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
-        'cachepage' => \App\Http\Middleware\CachePage::class,
     ];
 }

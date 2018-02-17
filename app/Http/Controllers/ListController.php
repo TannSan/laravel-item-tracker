@@ -26,6 +26,7 @@ class ListController extends Controller
 
     /**
      * Store or update a ListItem.
+     * Also handles the deletion so we could use POST to handle multiple ids.
      * Validation Rules: https://laravel.com/docs/5.5/validation#available-validation-rules
      *
      * @param  \Illuminate\Http\Request  $request
@@ -33,6 +34,13 @@ class ListController extends Controller
      */
     public function store(Request $request)
     {
+        // Delete all the ids specified
+        if($request->input('item_ids'))
+            {
+                \App\ListItem::destroy(explode(",", $request->input('item_ids')));
+                return \Response::json(array('success' => true, 'item_ids' => $request->input('item_ids'))); 
+            }
+
         $data = $request->validate([
             'parent_id' => 'required|numeric',
             'user_id' => 'required|numeric',
@@ -59,21 +67,5 @@ class ListController extends Controller
             }
 
         return \Response::json(array('success' => true, 'id' => $list_item->id)); 
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        /*
-       $list_item = \App\ListItem::find($id);
-       $list_item->delete();
-       */
-
-       return Response::json(array('success' => true)); 
     }
 }

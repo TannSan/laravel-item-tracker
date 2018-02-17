@@ -177,3 +177,7 @@ ol.sortable-list li.placeholder:before {
     border-left-color: #fb0000;
     border-right: none;
 }
+
+ol.sortable-list.kill-container li {
+    text-align: center;
+}

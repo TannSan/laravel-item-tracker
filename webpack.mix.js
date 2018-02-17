@@ -13,7 +13,8 @@ let mix = require('laravel-mix');
 
 mix.js('resources/assets/js/app.js', 'public/js')
     .js('resources/assets/js/jquery-sortable.js', 'public/js')
-    .js('resources/assets/js/log.js', 'public/js')
-    .js('resources/assets/js/sortable-lists.js', 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css')
+    .version();
+
+mix.scripts(['resources/assets/js/log.js', 'resources/assets/js/sortable-lists.js'], 'public/js/sortable-lists.js')
     .version();

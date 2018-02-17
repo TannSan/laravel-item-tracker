@@ -52,48 +52,79 @@ $("ol.user-container").sortable(
         group: 'system-users',
         handle: 'span.glyphicon-move',
         onDrop: function ($item, container, _super) {
-
-            // If this is the new-template list item then clone it back to the original position and then configure this copy
-            if ($item.attr('id') == 'new-item') {
-                $item.removeAttr('id');
-                $('input', $item).prop("disabled", false);
-                $('input', $item).focus();
-                $item.append('<ol></ol>');
-
-                // Clone the hidden template and display it so they can create another new list item
-                var new_item = $('li#new-template').clone();
-                new_item.attr('id', 'new-item');
-                new_item.prependTo("ol.new-container");
-                new_item.show();
-
-            }
-
-            // If the item is a direct descendant of a user container...
-            var parent_id = 0;
-            if (!container.el.hasClass('user-container')) {                
-                parent_id = container.el.parent().data('id');
-            }
-
-            // Save the item to the database.  If it's a new item then retrieve and set the new ID.
-            $.ajax({
-                method: 'POST',
-                url: '/list',
-                context: $item,
-                data: {
-                    'id': $item.data('id'),
-                    'parent_id': parent_id,
-                    'user_id': $item.closest('ol.user-container').data('user-id'),
-                    'label': $item.data('label')
-                },
-                headers: { 'X-CSRF-TOKEN': $('input[name=_token]').val() }
-            }).done(function (json_response) {
-                // $("div.alert-success").html(json_response.test);
-                if($(this).data('id') == 0)
-                    $(this).data('id', json_response.id);
-                // itemLog(json_response);
-            });
-
             _super($item, container);
+
+            /**
+             * There seems to be a bug with the sortable list component were the onDrop function only works for the first .sortable initialisation.
+             * So if I define another onDrop inside the $("ol.kill-container").sortable() it never gets called.
+             * Because of that I have lumped the kill behavior in here.
+             */
+            if(container.el.hasClass('kill-container'))
+                { 
+                    // Delete the item and it's children in the database.   
+                    // Hijacking the POST (/store) route so we can send custom variables
+                    if ($item.attr('id') != 'new-item')
+                        {   
+                            var id_array = $item.find("li").map(function() { return $(this).data('id'); }).get();                            
+                            itemLog('Killed Item: ' + $item.data('label') + (id_array.length > 0 ? ' (+Kids)' : '')); 
+                            $.ajax({
+                                method: 'POST',
+                                url: '/list',
+                                context: $item,
+                                data: {
+                                    'item_ids': $item.data('id') + ',' + id_array.join()
+                                },
+                                headers: { 'X-CSRF-TOKEN': $('input[name=_token]').val() }
+                            });
+                        }   
+                    else
+                        itemLog('Killed New Item'); 
+        
+                    // Delete the item.
+                    $item.remove();
+                }
+            else
+                {
+                    // If this is the new-template list item then clone it back to the original position and then configure this copy
+                    if ($item.attr('id') == 'new-item') {
+                        $item.removeAttr('id');
+                        $('input', $item).prop("disabled", false);
+                        $('input', $item).focus();
+                        $item.append('<ol></ol>');
+
+                        // Clone the hidden template and display it so they can create another new list item
+                        var new_item = $('li#new-template').clone();
+                        new_item.attr('id', 'new-item');
+                        new_item.prependTo("ol.new-container");
+                        new_item.show();
+                        
+                        itemLog('Created New Item');  
+                    }
+
+                    // If the item is a direct descendant of a user container...
+                    var parent_id = 0;
+                    if (!container.el.hasClass('user-container')) {                
+                        parent_id = container.el.parent().data('id');
+                    }
+
+                    // Save the item to the database.  If it's a new item then retrieve and set the new ID.
+                    $.ajax({
+                        method: 'POST',
+                        url: '/list',
+                        context: $item,
+                        data: {
+                            'id': $item.data('id'),
+                            'parent_id': parent_id,
+                            'user_id': $item.closest('ol.user-container').data('user-id'),
+                            'label': $item.data('label')
+                        },
+                        headers: { 'X-CSRF-TOKEN': $('input[name=_token]').val() }
+                    }).done(function (json_response) {
+                        if($(this).data('id') == 0)
+                            $(this).data('id', json_response.id);
+                    });
+                }
+
             return false;
         }
     }
@@ -105,6 +136,14 @@ $("ol.new-container").sortable(
         group: 'system-users',
         drop: false,
         handle: 'span.glyphicon-move'
+    }
+);
+
+// Initialise the Kill Item panel.
+$("ol.kill-container").sortable(
+    {
+        group: 'system-users',
+        drag: false
     }
 );
 
@@ -125,6 +164,8 @@ function saveListItem(target) {
     var target_li = target.closest('li');
     if (target.val() != "" && target.val() != target_li.data('label'))
         {
+            itemLog('Renamed Item: ' + target_li.data('label') + ' To: ' + target.val()); 
+
             target_li.data('label', target.val());
             $.ajax({
                 method: 'POST',

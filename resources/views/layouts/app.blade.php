@@ -59,7 +59,6 @@
       <script src="{{ asset('js/app.js') }}"></script>
       <script src="{{ asset('js/jquery-sortable.js') }}"></script>      
       @if(Request::is('start'))<script src="{{ asset('js/bootstrap-confirmation.min.js') }}"></script>@endif
-      <script src="{{ asset('js/log.js') }}"></script>      
       <script src="{{ asset('js/sortable-lists.js') }}"></script>      
    </body>
 </html>

@@ -42,6 +42,9 @@ function RemoteListItemCreated(data)
                     $('li[data-id="' + data.parent_id + '"]').children('ol').append(new_list_item);
                 else
                     console.log(data.item_id + ' Could Not Locate Parent ' + data.parent_id + ' For ' + data.item_user_id);
+
+                if(!interactive)
+                    new_list_item.find('input').prop('disabled','disabled');
             }
     }
 

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
+        @hasanyrole('Admin|Editor')
         <div class="row">
             <div class="col-sm-4">
                 <div class="panel panel-default panel-new-template">
@@ -32,6 +33,7 @@
                 </div>
             </div>
         </div>
+        @endhasanyrole
         @php ($mod = count($users) % 2 ? 3 : 2)
         @php ($col_css = $mod == 3 ? 'col-sm-4' : 'col-sm-6')
         @php ($counter = 0)
@@ -54,7 +56,12 @@
             @endif
         @endforeach
     <script type="text/javascript">
-        var user_id = {{ Auth::id() }};
+        @hasanyrole('Admin|Editor')
+        var interactive = true;
+        @else
+        var interactive = false;
+        @endhasanyrole
         var list_items = {!! $list_items !!};
+        var user_id = {{ Auth::id() }};
     </script>
 @endsection

@@ -52,6 +52,8 @@ $("ol.user-container").sortable(
     {
         group: 'system-users',
         handle: 'span.glyphicon-move',
+        drag: interactive,
+        drop: interactive,
         onDrop: function ($item, container, _super) {
             _super($item, container);
 
@@ -137,6 +139,7 @@ $("ol.user-container").sortable(
 $("ol.new-container").sortable(
     {
         group: 'system-users',
+        drag: interactive,
         drop: false,
         handle: 'span.glyphicon-move'
     }
@@ -146,7 +149,8 @@ $("ol.new-container").sortable(
 $("ol.kill-container").sortable(
     {
         group: 'system-users',
-        drag: false
+        drag: false,
+        drop: interactive
     }
 );
 
@@ -228,3 +232,6 @@ function listItemLoseFocus()
 $(document).on('keypress', 'ol.user-container input.form-control', listItemEnterKey);
 $(document).on('focusin', 'ol.user-container input.form-control', listItemGainFocus);
 $(document).on('focusout', 'ol.user-container input.form-control', listItemLoseFocus);
+
+if(!interactive)
+    $('div#app').find('input').prop('disabled','disabled');

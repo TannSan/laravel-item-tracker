@@ -19,10 +19,13 @@ function leadingZeros(message_time) {
  * @param {string} message 
  */
 function itemLog(message) {
-    var dt = new Date();
-    var message_time = leadingZeros(dt.getHours()) + ":" + leadingZeros(dt.getMinutes());
-    item_log.val(item_log.val() + message_time + ' ' + message + '\n');
-    item_log.scrollTop(item_log[0].scrollHeight);
+    if(interactive)
+        {
+            var dt = new Date();
+            var message_time = leadingZeros(dt.getHours()) + ":" + leadingZeros(dt.getMinutes());
+            item_log.val(item_log.val() + message_time + ' ' + message + '\n');
+            item_log.scrollTop(item_log[0].scrollHeight);
+        }
 }
 
 // Initialise the action log.

@@ -64,7 +64,13 @@ $("ol.user-container").sortable(
                 { 
                     // Delete the item and it's children in the database.   
                     // Hijacking the POST (/store) route so we can send custom variables
-                    if ($item.attr('id') != 'new-item')
+                    if ($item.attr('id') == "new-item")
+                        {
+                            // We don't delete the New Item, we just move it back to the New Item panel.
+                            $('ol.new-container').prepend($item);
+                            itemLog('Killed New Item'); 
+                        }
+                    else
                         {   
                             var id_array = $item.find("li").map(function() { return $(this).attr('data-id'); }).get();                            
                             itemLog('Killed Item: ' + $item.attr('data-label') + (id_array.length > 0 ? ' (+Kids)' : '')); 
@@ -76,13 +82,9 @@ $("ol.user-container").sortable(
                                     'item_ids': $item.attr('data-id') + ',' + id_array.join()
                                 },
                                 headers: { 'X-CSRF-TOKEN': $('input[name=_token]').val() }
-                            });
-                        }   
-                    else
-                        itemLog('Killed New Item'); 
-        
-                    // Delete the item.
-                    $item.remove();
+                            });                                           
+                            $item.remove();
+                        }    
                 }
             else
                 {

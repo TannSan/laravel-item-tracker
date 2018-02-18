@@ -8,6 +8,7 @@
       <title>{{ config('app.name', 'Laravel') }}</title>
       <link href="{{ asset('css/app.css') }}" rel="stylesheet">
       <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+      <link rel="author" href="humans.txt" />
    </head>
    <body>
       <div id="app">
@@ -49,9 +50,11 @@
          @yield('content')
       </div>
       <script src="{{ asset('js/app.js') }}"></script>
+      @hasanyrole('Admin|Editor|Viewer')
       @if(Request::is('list'))
       <script src="{{ asset('js/jquery-sortable.js') }}"></script>      
       <script src="{{ asset('js/sortable-lists.js') }}"></script>      
       @endif
+      @endhasanyrole
    </body>
 </html>

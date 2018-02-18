@@ -19,7 +19,12 @@ class ListController extends Controller
      */
     public function index()
     {
-        return view('lists.index')->with('list_items', json_encode(\App\ListItem::orderBy('label')->orderBy('parent_id')->get()));
+        $users = \App\User::whereHas('roles', function($q){
+            $q->whereIn('name', ['Admin', 'Editor', 'Viewer']);
+        })->get();
+
+        $list_items = json_encode(\App\ListItem::orderBy('label')->orderBy('parent_id')->get());
+        return view('lists.index', compact('users', 'list_items'));
     }
 
     /**

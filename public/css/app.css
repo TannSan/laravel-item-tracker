@@ -8464,7 +8464,11 @@ body {
 }
 
 .panel.panel-new-template {
-  height: 100px;
+  height: 171px;
+}
+
+.panel.panel-new-template ol.new-container {
+  margin-top: 33px;
 }
 
 textarea#item-log {
@@ -8534,5 +8538,23 @@ ol.sortable-list li.placeholder:before {
 
 ol.sortable-list.kill-container li {
   text-align: center;
+}
+
+/**
+ * Responsive Panels
+ */
+
+@media (max-width: 768px) {
+  .panel.panel-new-template {
+    height: auto;
+  }
+
+  .panel.panel-new-template ol.new-container {
+    margin-top: 0;
+  }
+
+  ol.kill-container li img#trashcan {
+    height: 30px;
+  }
 }
 

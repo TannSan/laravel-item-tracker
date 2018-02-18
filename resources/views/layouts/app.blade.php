@@ -55,10 +55,12 @@
          --}}
          @yield('content')
       </div>
-      <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+      {{--<script src="https://js.pusher.com/4.1/pusher.min.js"></script>--}}
       <script src="{{ asset('js/app.js') }}"></script>
-      <script src="{{ asset('js/jquery-sortable.js') }}"></script>      
       @if(Request::is('start'))<script src="{{ asset('js/bootstrap-confirmation.min.js') }}"></script>@endif
+      @if(Request::is('list'))
+      <script src="{{ asset('js/jquery-sortable.js') }}"></script>      
       <script src="{{ asset('js/sortable-lists.js') }}"></script>      
+      @endif
    </body>
 </html>

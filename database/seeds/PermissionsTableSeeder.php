@@ -31,7 +31,13 @@ class PermissionsTableSeeder extends Seeder
         $role = Role::where('name', '=', 'Viewer')->first();
         $role->givePermissionTo('View Collection');
 
-        $user = User::Create(['name' => 'Admin', 'email' => 'test@test.com', 'password' => 'BingoBongo42']);
+        $user = User::Create(['name' => 'Mark', 'email' => 'mark@test.com', 'password' => 'BingoBongo42']);
         $user->assignRole('Admin');
+
+        $user = User::Create(['name' => 'Sandy', 'email' => 'sandy@test.com', 'password' => 'BingoBongo42']);
+        $user->assignRole('Editor');
+
+        $user = User::Create(['name' => 'Alison', 'email' => 'alison@test.com', 'password' => 'BingoBongo42']);
+        $user->assignRole('Viewer');
     }
 }

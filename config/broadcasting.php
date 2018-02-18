@@ -26,10 +26,26 @@ return [
     | to broadcast events to other systems or over websockets. Samples of
     | each available type of connection are provided inside this array.
     |
+
+PUSHER_APP_ID=475130
+PUSHER_APP_KEY=b08d374d9d2bed6f5664
+PUSHER_APP_SECRET=a44d49fb5db3004a48be
+PUSHER_APP_CLUSTER=eu
     */
 
     'connections' => [
 
+        'pusher' => [
+            'driver' => 'pusher',
+            'key' => 'b08d374d9d2bed6f5664',
+            'secret' => 'a44d49fb5db3004a48be',
+            'app_id' => '475130',
+            'options' => [
+                'cluster' => 'eu',
+                'encrypted' => true,
+            ],
+        ],
+/*
         'pusher' => [
             'driver' => 'pusher',
             'key' => env('PUSHER_APP_KEY'),
@@ -40,7 +56,7 @@ return [
                 'encrypted' => true,
             ],
         ],
-
+*/
         'redis' => [
             'driver' => 'redis',
             'connection' => 'default',

@@ -18,7 +18,7 @@ class HomeController extends Controller
     public function index()
     {
       if(Auth::user() !== null && Auth::user()->hasAnyPermission(['Administer Roles & Permissions', 'Edit Collection', 'View Collection']))
-        return redirect('lists.index');
+        return redirect('list');
       else
         return view('home');
     }

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
+        <ul id="messages" class="list-group"></ul>
         <div class="row">
             <div class="col-md-4">
                 <div class="panel panel-default">
@@ -46,6 +47,7 @@
         </div>
     </div>
     <script type="text/javascript">
+        var user_id = {{ Auth::id() }};
         var list_items = {!! $list_items !!};
     </script>
 @endsection

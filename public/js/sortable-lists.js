@@ -1,9 +1,15 @@
+/**
+ * Pusher Remote Activity Functionality
+ * Author: David Millington
+ */
 
+/*
+// Really useful for debugging purposes
 Pusher.log = function(msg)
     {
         console.log(msg);
     };
-
+*/
 var pusher = new Pusher("b08d374d9d2bed6f5664", { 
     /*authEndpoint: '/pusher/auth',*/
     auth: {
@@ -98,11 +104,11 @@ function RemoteListItemDeleted(data)
         if(data.user_id != user_id)
             {
                 $kill_target = $('li[data-id="' + data.item_id + '"]');
-                
+
                 if(data.item_ids.indexOf(',') == -1)
                     itemLog(data.user_name + ' Deleted An Item: ' + $kill_target.attr('data-label'));
                 else
-                    itemLog(data.user_name + ' Deleted An Item: ' + $kill_target.attr('data-label') + ' And Its Children');
+                    itemLog(data.user_name + ' Deleted An Item: ' + $kill_target.attr('data-label') + ' (+Kids)');
 
                 $kill_target.remove();
             }
@@ -112,12 +118,6 @@ var channel = pusher.subscribe('list-demo');
 channel.bind('ListItemCreatedEvent', RemoteListItemCreated);
 channel.bind('ListItemSavedEvent', RemoteListItemSaved);
 channel.bind('ListItemDeletedEvent', RemoteListItemDeleted);
-
-/*
-Echo.channel('private-list-demo').listen('TextMessageEvent', (e) => {
-        console.log('Event is triggered!');
-    });
-    */
 /**
  * User Log
  * Author: David Millington

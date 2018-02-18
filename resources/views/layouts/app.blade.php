@@ -46,18 +46,9 @@
             </div>
          </div>
          @endif
-         {{--
-         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-               @include ('errors.list')
-            </div>
-         </div>
-         --}}
          @yield('content')
       </div>
-      {{--<script src="https://js.pusher.com/4.1/pusher.min.js"></script>--}}
       <script src="{{ asset('js/app.js') }}"></script>
-      @if(Request::is('start'))<script src="{{ asset('js/bootstrap-confirmation.min.js') }}"></script>@endif
       @if(Request::is('list'))
       <script src="{{ asset('js/jquery-sortable.js') }}"></script>      
       <script src="{{ asset('js/sortable-lists.js') }}"></script>      

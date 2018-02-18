@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        <ul id="messages" class="list-group"></ul>
         <div class="row">
             <div class="col-md-4">
                 <div class="panel panel-default">

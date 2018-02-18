@@ -8409,6 +8409,10 @@ body {
   border-color: #fff;
 }
 
+.alert h3 {
+  margin: 0;
+}
+
 /* Bootstrap Panels, more settings in _variables.scss */
 
 .panel {

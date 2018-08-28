@@ -36,6 +36,7 @@ Viewer Login:
 * [Lavaral 5](https://laravel.com)
 * [jquery-sortable.js](http://johnny.github.com/jquery-sortable/)
 * [Bootstrap 3.3.7](https://getbootstrap.com/docs/3.3/)
+* [Spatie Laravel Permissions](https://github.com/spatie/laravel-permission)
 
 ## To Do
 * Internationalisation of the admin and home screens

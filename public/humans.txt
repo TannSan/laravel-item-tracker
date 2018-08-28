@@ -10,9 +10,10 @@ Copyright: Copyright (c) 2018 David Millington - All rights reserved
 
 Jonas von Andrian - http://johnny.github.com/jquery-sortable/
 Kevin - https://github.com/pusher/pusher-http-laravel
+Spatie - https://github.com/spatie/laravel-permission
 
 /* SITE */
 
 Last update: 2018/08/28
 Standards: HTML5, CSS3, PHP
-Components: Bootstrap 3, JQuery, Laravel, Pusher, JQuery Sortable
+Components: Bootstrap 3, JQuery, Laravel, Pusher, JQuery Sortable, Spatie Laravel Permissions

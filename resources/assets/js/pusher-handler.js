@@ -10,7 +10,9 @@ Pusher.log = function(msg)
         console.log(msg);
     };
 */
-var pusher = new Pusher("b08d374d9d2bed6f5664", { 
+
+// TODO: Get the pusher ID from the env file
+var pusher = new Pusher("b08d374d9d2bed6f5664", {
     /*authEndpoint: '/pusher/auth',*/
     auth: {
         headers: {
@@ -18,13 +20,13 @@ var pusher = new Pusher("b08d374d9d2bed6f5664", {
         }
     },
     cluster: 'eu',
-    encrypted: true 
-}); 
+    encrypted: true
+});
 
 /**
   * Handles new List Items being created by a remote user.
   * Called when the broadcast "Created" event is received.
-  * @param {Object} data 
+  * @param {Object} data
  */
 function RemoteListItemCreated(data)
     {
@@ -51,7 +53,7 @@ function RemoteListItemCreated(data)
 /**
      * Handles changing the parent or label of an existing List Item by a remote user.
      * Called when the broadcast "Saved" event is received.
-     * @param {Object} data 
+     * @param {Object} data
  */
 function RemoteListItemSaved(data)
     {
@@ -63,12 +65,12 @@ function RemoteListItemSaved(data)
                 // If the item was renamed...
                 if (data.label != changed_item.attr('data-label'))
                     {
-                        itemLog(data.user_name + ' Renamed Item: ' + changed_item.attr('data-label') + ' To: ' + data.label); 
+                        itemLog(data.user_name + ' Renamed Item: ' + changed_item.attr('data-label') + ' To: ' + data.label);
                         changed_item.find('input').first().val(data.label);
                         changed_item.attr('data-label', data.label);
                     }
                 else
-                    {                    
+                    {
                         var target_parent;
                         // If the item is connected to a user panel.
                         if(data.parent_id == 0)
@@ -77,9 +79,9 @@ function RemoteListItemSaved(data)
                                 if(target_parent != changed_item.parent())
                                     {
                                         // The remote item has been moved so move the local copy
-                                        itemLog(data.user_name + ' Moved An Item To Another User Panel'); 
+                                        itemLog(data.user_name + ' Moved An Item To Another User Panel');
                                         changed_item.appendTo(target_parent);
-                                    } 
+                                    }
                             }
                         // Else it is connected to another list item.
                         else
@@ -88,7 +90,7 @@ function RemoteListItemSaved(data)
                                 if(target_parent != changed_item.parent().parent())
                                     {
                                         // The remote item has been moved so move the local copy
-                                        itemLog(data.user_name + ' Moved An Item'); 
+                                        itemLog(data.user_name + ' Moved An Item');
                                         changed_item.appendTo(target_parent.children('ol'));
                                     }
                             }
@@ -99,7 +101,7 @@ function RemoteListItemSaved(data)
 /**
      * Handles new List Items being deleted by a remote user.
      * Called when the broadcast "Delete" event is received.
-     * @param {Object} data 
+     * @param {Object} data
  */
 function RemoteListItemDeleted(data)
     {

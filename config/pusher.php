@@ -40,24 +40,14 @@ return [
     'connections' => [
 
         'main' => [
-            'auth_key' => 'b08d374d9d2bed6f5664',
-            'secret' => 'a44d49fb5db3004a48be',
-            'app_id' => '475130',
-            'options' => [ 'cluster' => 'eu', 'encrypted' => true ],
+            'auth_key' => env('PUSHER_APP_KEY'),
+            'secret' => env('PUSHER_APP_SECRET'),
+            'app_id' => env('PUSHER_APP_ID'),
+            'options' => [ 'cluster' => env('PUSHER_APP_CLUSTER'), 'encrypted' => true ],
             'host' => null,
             'port' => null,
             'timeout' => null,
-        ],
-
-        'alternative' => [
-            'auth_key' => 'b08d374d9d2bed6f5664',
-            'secret' => 'a44d49fb5db3004a48be',
-            'app_id' => '475130',
-            'options' => [ 'cluster' => 'eu', 'encrypted' => true ],
-            'host' => null,
-            'port' => null,
-            'timeout' => null,
-        ],
+        ]
 
     ],
 

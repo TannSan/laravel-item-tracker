@@ -18,20 +18,3 @@ Route::get('/logout', 'Auth\LoginController@logout')->name('logout' );
 Route::resource('users', 'UserController');
 Route::resource('roles', 'RoleController');
 Route::resource('permissions', 'PermissionController');
-
-/*
-//Route::get('pusher/auth', 'PusherAuthController@postAuth');
-Route::get('/pusher', function() {
-    Pusher::set_logger(new MyLogger() );
-    // Received in JS as: {"event":"TextMessageEvent2","data":{"user":{"id":1,"name":"Admin","email":"test@test.com","created_at":"2018-02-15 22:40:56","updated_at":"2018-02-15 22:40:56"},"message":"Howdy!"},"channel":"list-demo"}
-    Pusher::trigger('list-demo', 'TextMessageEvent2', ['user' => Auth::user(), 'message' => "Howdy!"]);
-    return "Event has been sent!";
-});
-class MyLogger
-    {
-        public function log($msg)
-            {
-                print_r($msg . "\n");
-            }
-    }
-*/

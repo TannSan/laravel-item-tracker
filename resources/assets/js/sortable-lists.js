@@ -11,7 +11,7 @@ var list_item_template = '<li data-id="#id#" data-label="#title#"><div class="in
 
 /**
  * Creates all the list items using the provided item list data (in a flat structure).
- * @param {JSON} list_data 
+ * @param {JSON} list_data
  */
 function populateList(list_data)
     {
@@ -63,19 +63,19 @@ $("ol.user-container").sortable(
              * Because of that I have lumped the kill behavior in here.
              */
             if(container.el.hasClass('kill-container'))
-                { 
-                    // Delete the item and it's children in the database.   
+                {
+                    // Delete the item and it's children in the database.
                     // Hijacking the POST (/store) route so we can send custom variables
                     if ($item.attr('id') == "new-item")
                         {
                             // We don't delete the New Item, we just move it back to the New Item panel.
                             $('ol.new-container').prepend($item);
-                            itemLog('Killed New Item'); 
+                            itemLog('Killed New Item');
                         }
                     else
-                        {   
-                            var id_array = $item.find("li").map(function() { return $(this).attr('data-id'); }).get();                            
-                            itemLog('Killed Item: ' + $item.attr('data-label') + (id_array.length > 0 ? ' (+Kids)' : '')); 
+                        {
+                            var id_array = $item.find("li").map(function() { return $(this).attr('data-id'); }).get();
+                            itemLog('Killed Item: ' + $item.attr('data-label') + (id_array.length > 0 ? ' (+Kids)' : ''));
                             $.ajax({
                                 method: 'POST',
                                 url: '/list',
@@ -84,9 +84,9 @@ $("ol.user-container").sortable(
                                     'item_ids': $item.attr('data-id') + ',' + id_array.join()
                                 },
                                 headers: { 'X-CSRF-TOKEN': $('input[name=_token]').val() }
-                            });                                           
+                            });
                             $item.remove();
-                        }    
+                        }
                 }
             else
                 {
@@ -103,8 +103,8 @@ $("ol.user-container").sortable(
                             new_item.attr('id', 'new-item');
                             new_item.prependTo("ol.new-container");
                             new_item.show();
-                            
-                            itemLog('Created New Item');  
+
+                            itemLog('Created New Item');
                         }
 
                     // If the item is a direct descendant of a user container...
@@ -154,25 +154,16 @@ $("ol.kill-container").sortable(
     }
 );
 
-// Track the panel that the dragged item was originally from so we can force a refresh on it after saving the changes
-/*
-$("ol.user-container").mousedown(function (event) {
-    console.log('Source Panel User ID: ' + $(this).attr('data-user-id'));
-    //event.preventDefault();
-    //return true;
-});
-*/
-
 /**
  * Save the list item to the database.  This is called when the label is changed.
- * @param {JQuery object for the list item Text Input} target 
+ * @param {JQuery object for the list item Text Input} target
  */
 function saveListItem(target)
     {
         var target_li = target.closest('li');
         if (target.val() != "" && target.val() != target_li.attr('data-label'))
             {
-                itemLog('Renamed Item: ' + target_li.attr('data-label') + ' To: ' + target.val()); 
+                itemLog('Renamed Item: ' + target_li.attr('data-label') + ' To: ' + target.val());
 
                 target_li.attr('data-label', target.val());
                 $.ajax({
@@ -187,12 +178,12 @@ function saveListItem(target)
                     },
                     headers: { 'X-CSRF-TOKEN': $('input[name=_token]').val() }
                 });
-            }        
+            }
     }
 
 /**
  * Returns the data-id of the ListItem that is the parent of the supplied target or 0 if the parent is a user panel.
- * @param {List Item} target 
+ * @param {List Item} target
  */
 function getParentID(target)
     {

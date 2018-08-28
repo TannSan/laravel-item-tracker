@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     public function __construct()
-    {      
+    {
     }
 
     /**
-     * If logged in redirect to the lis page otherwise display the default home page.
+     * If logged in redirect to the list page otherwise display the default home page.
      *
      * @return \Illuminate\Http\Response
      */

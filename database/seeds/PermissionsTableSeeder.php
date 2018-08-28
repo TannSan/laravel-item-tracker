@@ -37,6 +37,9 @@ class PermissionsTableSeeder extends Seeder
         $user = User::Create(['name' => 'Sandy', 'email' => 'sandy@test.com', 'password' => 'BingoBongo42']);
         $user->assignRole('Editor');
 
+        $user = User::Create(['name' => 'Amy', 'email' => 'amy@test.com', 'password' => 'BingoBongo42']);
+        $user->assignRole('Editor');
+
         $user = User::Create(['name' => 'Alison', 'email' => 'alison@test.com', 'password' => 'BingoBongo42']);
         $user->assignRole('Viewer');
     }

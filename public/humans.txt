@@ -1,18 +1,18 @@
 /* TEAM */
-                        
+
 Your title: David Millington
 Site: http://www.davidmillington.net
 Location: Manchester, United Kingdom
-Description: This project was created as part of the coding test for my job application to DotFive Limited
+Description: A personal project to experiment with Laravel and Pusher.
 Copyright: Copyright (c) 2018 David Millington - All rights reserved
 
 /* THANKS */
 
 Jonas von Andrian - http://johnny.github.com/jquery-sortable/
 Kevin - https://github.com/pusher/pusher-http-laravel
-                        
+
 /* SITE */
-                        
-Last update: 2018/02/18                        
+
+Last update: 2018/08/28
 Standards: HTML5, CSS3, PHP
 Components: Bootstrap 3, JQuery, Laravel, Pusher, JQuery Sortable
